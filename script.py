@@ -3,4 +3,4 @@ import pandas as pd
 
 #sb.competitions()
 
-match = pd.read_csv('match1.csv')
+match = pd.read_csv('data/match1.csv')

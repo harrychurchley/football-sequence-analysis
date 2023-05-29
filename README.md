@@ -9,3 +9,5 @@ How does opponent pressing influences match result
 Styles of play: in what play pattern do teams score (or concede) goals (or shots)?
 
 Sequences - are certain teams less reliant on specific sequences to succeed? E.g, is the ‘If Haaland doesn’t hurt you, someone else will…’ theory true?
+
+Pass clustering
