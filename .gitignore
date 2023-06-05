@@ -162,3 +162,4 @@ cython_debug/
 test*
 data/
 .DS_Store
+testing/
