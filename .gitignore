@@ -163,3 +163,4 @@ test*
 data/
 .DS_Store
 testing/
+func-testing*
