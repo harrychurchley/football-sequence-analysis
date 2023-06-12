@@ -1,7 +1,13 @@
 import ast
 import pandas as pd
 import numpy as np
-#import matplotlib as plt
+from sklearn.preprocessing import LabelEncoder
+from scipy.stats import rankdata
+import matplotlib.pyplot as plt
+from statsbombpy import sb
+from prefixspan import PrefixSpan
+from mplsoccer.pitch import Pitch
+from matplotlib.cm import ScalarMappable
 
 def select_req_data(df, team):
     req_cols=['match_id','index','type','team','player','player_id',
@@ -43,7 +49,7 @@ def encode_columns(df, columns, zero_padding=False):
     label_encoder = LabelEncoder()
     for col in columns:
         new_col_name = f"{col}_id"
-        encoded_column = label_encoder.fit_transform(events[col])
+        encoded_column = label_encoder.fit_transform(df[col])
         if zero_padding:
             num_values = df[col].nunique()
             max_width = len(str(num_values))
@@ -103,7 +109,7 @@ def get_leading_events(df, n_events):
     event_indexes = []
     play_outcome = []
     play_xG = []
-    for i, row in events.iterrows():
+    for i, row in df.iterrows():
         if row['type'] == 'Shot':
             outcome = row['shot_outcome']
             xG = row['shot_statsbomb_xg']
