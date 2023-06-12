@@ -1,3 +1,6 @@
+import ast
+import pandas as pd
+import numpy as np
 #import matplotlib as plt
 
 def select_req_data(df, team):
@@ -13,13 +16,24 @@ def clean_player_id(df):
     df['player_id'] = df['player_id'].astype(str).str.split('.', expand=True)[0] # remove .0
     return df
 
-def split_location_coords(df, drop_originals=False): 
+def parse_location(value):
+    if pd.isna(value):
+        return np.nan
+    else:
+        return ast.literal_eval(value)
+
+def split_location_coords(df, drop_originals=False):
+    df['location'] = df['location'].apply(parse_location)
+    df['pass_end_location'] = df['pass_end_location'].apply(parse_location)
+    df['carry_end_location'] = df['carry_end_location'].apply(parse_location)
+    
     df['location_x'] = df['location'].str[0]
     df['location_y'] = df['location'].str[1]
     df['pass.end_location_x'] = df['pass_end_location'].str[0]
     df['pass.end_location_y'] = df['pass_end_location'].str[1]
     df['carry.end_location_x'] = df['carry_end_location'].str[0]
     df['carry.end_location_y'] = df['carry_end_location'].str[1]
+
     # drop orginal cols
     if drop_originals:
         df = df.drop(['location', 'pass_end_location', 'carry_end_location'], axis=1)
